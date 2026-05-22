@@ -133,6 +133,128 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
   border-color:var(--red-b);
   color:var(--paper);
 }
+
+/* 인덱스 페이지의 '더 알아보기' 버튼 강조 (고베 이벤트 CTA와 통일감) */
+.btn-learn-more.landing-learn{
+  background:var(--blood);
+  border:1px solid #cc3030;
+  color:#fce0d0;
+  font-family:system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  font-size:14px;letter-spacing:.18em;font-weight:700;
+  padding:14px 26px;
+  box-shadow:0 0 20px rgba(139,32,32,.35),0 0 45px rgba(139,32,32,.12);
+  position:relative;overflow:hidden;
+}
+.btn-learn-more.landing-learn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+  animation:shimmer 2.8s linear infinite;
+  pointer-events:none;
+}
+.btn-learn-more.landing-learn:hover{
+  background:#a82828;
+  border-color:#e03030;
+  color:#fff;
+  box-shadow:0 0 30px rgba(180,40,40,.55),0 0 60px rgba(139,32,32,.25);
+}
+
+/* ===== 경품 그리드 (인덱스 페이지 이벤트 상세) ===== */
+.prize-section{
+  width:100%;max-width:480px;
+  margin-top:14px;
+  border:1px solid var(--border);
+  background:rgba(139,32,32,.04);
+  padding:22px 18px 20px;
+  opacity:0;animation:fup .8s 1.05s forwards;
+  position:relative;
+}
+.prize-section::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(139,32,32,.06),transparent 60%);
+  pointer-events:none;
+}
+.prize-heading{
+  text-align:center;
+  font-size:11px;letter-spacing:.4em;color:var(--red-b);
+  margin-bottom:6px;
+}
+.prize-lead{
+  text-align:center;
+  font-family:'Shippori Mincho',serif;
+  font-size:15px;letter-spacing:.12em;color:var(--paper);
+  line-height:1.7;
+  margin-bottom:22px;
+}
+.prize-grand{
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.35);
+  padding:18px 14px 16px;
+  position:relative;
+  margin-bottom:14px;
+}
+.prize-card{
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.35);
+  padding:12px 8px 10px;
+  position:relative;
+  text-align:center;
+}
+.prize-count{
+  position:absolute;top:-11px;right:-6px;
+  background:var(--blood);
+  color:#fce0d0;
+  font-size:10px;letter-spacing:.05em;font-weight:700;
+  padding:3px 10px;
+  border-radius:14px;
+  border:1px solid #cc3030;
+  box-shadow:0 0 10px rgba(139,32,32,.4);
+}
+.prize-name-top{
+  font-size:14px;letter-spacing:.1em;color:var(--paper);
+  font-weight:700;
+  text-align:center;
+  margin-bottom:10px;
+}
+.prize-grand img{
+  display:block;width:80%;max-width:220px;margin:0 auto 8px;
+  border-radius:6px;
+}
+.prize-grand .prize-sub{
+  text-align:center;
+  font-size:11px;letter-spacing:.18em;color:var(--dim);
+  margin-top:6px;
+}
+.prize-grand .prize-amount{
+  text-align:center;
+  font-size:17px;letter-spacing:.08em;color:var(--paper);
+  font-weight:700;
+  margin-top:2px;
+}
+.prize-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.prize-card .prize-name{
+  font-size:11px;letter-spacing:.06em;color:var(--paper);
+  font-weight:600;
+  margin-bottom:6px;
+  line-height:1.3;
+}
+.prize-card img{
+  display:block;width:100%;height:50px;object-fit:contain;
+  margin:0 auto 6px;
+}
+.prize-card .prize-sub{
+  font-size:9px;letter-spacing:.08em;color:var(--mid);
+  margin-top:4px;
+  line-height:1.4;
+}
+.prize-card .prize-amount{
+  font-size:11px;letter-spacing:.04em;color:var(--dim);
+  font-weight:600;
+  margin-top:1px;
+}
 .landing-learn{
   opacity:0;
   animation:fup .8s 1.1s forwards;
@@ -250,7 +372,7 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
 }
 .omikuji-box.shaking{animation:shake .9s ease-in-out;}
 
-.draw-sub{font-size:13px;letter-spacing:.25em;color:var(--grey);opacity:.8;}
+.draw-sub{font-size:13px;letter-spacing:.25em;color:var(--dim);opacity:1;}
 
 /* 결과 */
 .result-area{display:none;flex-direction:column;align-items:center;gap:28px;width:100%;}
@@ -350,7 +472,7 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .toast.show{opacity:1;}
 
 /* 푸터 */
-.site-footer{margin-top:70px;font-size:10px;letter-spacing:.35em;color:var(--grey);opacity:.8;text-align:center;line-height:2.2;}
+.site-footer{margin-top:70px;font-size:11px;letter-spacing:.35em;color:var(--dim);opacity:1;text-align:center;line-height:2.2;}
 
 /* 상세 운세 */
 .detail-section{width:100%;max-width:520px;display:flex;flex-direction:column;gap:14px;animation:fup .7s .3s both;}
@@ -407,6 +529,14 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
   .action-row-3 .btn-share,
   .action-row-3 .btn-ghost{padding:16px 3px;font-size:11px;letter-spacing:.03em;white-space:normal;word-break:keep-all;line-height:1.4;}
   .result-learn{font-size:13px;padding:20px 6px;}
+  .prize-section{padding:18px 12px 16px;}
+  .prize-lead{font-size:13.5px;}
+  .prize-grand img{max-width:180px;}
+  .prize-grand .prize-amount{font-size:15px;}
+  .prize-card .prize-name{font-size:10px;}
+  .prize-card .prize-sub{font-size:8.5px;}
+  .prize-card .prize-amount{font-size:10px;}
+  .btn-learn-more.landing-learn{font-size:13px;padding:14px 18px;letter-spacing:.12em;}
 }
 </style>
 </head>
@@ -459,6 +589,46 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
     <div class="event-banner" onclick="draw()" role="button">
       <p class="event-badge">✦ 일본 여행 항공권 추첨 이벤트 ✦</p>
       <p class="event-title">오미쿠지로 오늘의 운세 확인하고<br>일본 고베 항공권 받자!</p>
+    </div>
+
+    <!-- 경품 상세 -->
+    <div class="prize-section">
+      <p class="prize-heading">✦ 일 본 여 행 항 공 권 추 첨 이 벤 트 ✦</p>
+      <p class="prize-lead">오미쿠지로 오늘의 운세 확인하고<br>일본 고베 항공권 받자!</p>
+
+      <!-- 1등 -->
+      <div class="prize-grand">
+        <span class="prize-count">1명</span>
+        <p class="prize-name-top">일본 고베 항공권</p>
+        <img src="assets/prize_air.png" alt="대한항공 기프트카드">
+        <p class="prize-sub">항공사 기프트카드</p>
+        <p class="prize-amount">100만원권</p>
+      </div>
+
+      <!-- 2~4등 -->
+      <div class="prize-grid">
+        <div class="prize-card">
+          <span class="prize-count">5명</span>
+          <p class="prize-name">CGV 기프트카드</p>
+          <img src="assets/prize_cgv.png" alt="CGV 기프트카드">
+          <p class="prize-sub">기프트카드</p>
+          <p class="prize-amount">5만원권</p>
+        </div>
+        <div class="prize-card">
+          <span class="prize-count">10명</span>
+          <p class="prize-name">CGV 영화관람권</p>
+          <img src="assets/prize_movie.png" alt="CGV 영화관람권">
+          <p class="prize-sub">영화관람권</p>
+          <p class="prize-amount">2매</p>
+        </div>
+        <div class="prize-card">
+          <span class="prize-count">84명</span>
+          <p class="prize-name">투썸 아메리카노</p>
+          <img src="assets/prize_coffee.png" alt="투썸플레이스 아메리카노">
+          <p class="prize-sub">기프티콘</p>
+          <p class="prize-amount">아메리카노 R</p>
+        </div>
+      </div>
     </div>
 
     <!-- 영화 더 알아보기 -->
@@ -579,7 +749,7 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
 
 <footer class="site-footer">
   <p><a href="https://m.site.naver.com/28BNi" target="_blank" style="color:var(--blood);text-decoration:none;letter-spacing:.35em;">신사 : 악귀의 속삭임</a> · 2026년 6월 17일 CGV 대개봉</p>
-  <p style="margin-top:4px;font-size:9px;opacity:.6;">運命ハ既ニ決マッテイル</p>
+  <p style="margin-top:4px;font-size:10px;opacity:.85;">運命ハ既ニ決マッテイル</p>
 </footer>
 
 <script>
