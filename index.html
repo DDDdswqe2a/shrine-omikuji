@@ -42,36 +42,42 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
 /* 신사 도리이 배경 (첫 화면 장식) */
 .shrine-bg{
   position:fixed;
-  top:0;left:50%;
-  transform:translateX(-50%);
-  width:min(900px,140vw);
-  max-width:none;
+  top:0;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  width:100vw;
+  max-width:900px;
   height:auto;
   pointer-events:none;
   z-index:2;
-  opacity:.42;
+  opacity:.35;
   mix-blend-mode:screen;
   filter:contrast(1.05) saturate(.9);
   transition:opacity .8s ease;
-  animation:fup 1.4s .1s both;
+  animation:shrineFade 1.4s .1s both;
   user-select:none;
   -webkit-user-drag:none;
+  display:block;
 }
-.shrine-bg::after{
-  /* 이미지 자체에 추가 처리는 필요 시 */
-}
-/* 도리이 위로 떨어지는 부드러운 페이드 (아래쪽으로 자연스럽게 어두워짐) */
+@keyframes shrineFade{from{opacity:0;}to{opacity:.35;}}
+/* 도리이 위로 떨어지는 부드러운 페이드 + 가운데 콘텐츠 가독성 보호 */
 .shrine-fade{
   position:fixed;
-  top:0;left:0;right:0;
-  height:min(900px,95vh);
+  top:0;left:0;right:0;bottom:0;
   pointer-events:none;
   z-index:3;
-  background:linear-gradient(180deg,
-    transparent 0%,
-    transparent 35%,
-    rgba(12,10,10,.45) 70%,
-    rgba(12,10,10,.92) 100%);
+  background:
+    radial-gradient(ellipse 55% 50% at 50% 35%,
+      rgba(12,10,10,.55) 0%,
+      rgba(12,10,10,.25) 50%,
+      transparent 80%),
+    linear-gradient(180deg,
+      transparent 0%,
+      transparent 50%,
+      rgba(12,10,10,.55) 75%,
+      rgba(12,10,10,.95) 100%);
 }
 /* 결과 화면에서는 도리이 숨김 (콘텐츠가 길어 어색해짐) */
 body.is-result .shrine-bg,
@@ -575,8 +581,7 @@ body.is-result .shrine-fade{opacity:0;}
   .prize-card .prize-sub{font-size:8.5px;}
   .prize-card .prize-amount{font-size:10px;}
   .btn-learn-more.landing-learn{font-size:13px;padding:14px 18px;letter-spacing:.12em;}
-  .shrine-bg{width:min(560px,130vw);opacity:.38;}
-  .shrine-fade{height:min(640px,80vh);}
+  .shrine-bg{width:100vw;max-width:560px;opacity:.32;}
 }
 </style>
 </head>
