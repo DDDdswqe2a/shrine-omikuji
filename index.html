@@ -39,6 +39,44 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
 
+/* 신사 도리이 배경 (첫 화면 장식) */
+.shrine-bg{
+  position:fixed;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:min(900px,140vw);
+  max-width:none;
+  height:auto;
+  pointer-events:none;
+  z-index:2;
+  opacity:.42;
+  mix-blend-mode:screen;
+  filter:contrast(1.05) saturate(.9);
+  transition:opacity .8s ease;
+  animation:fup 1.4s .1s both;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.shrine-bg::after{
+  /* 이미지 자체에 추가 처리는 필요 시 */
+}
+/* 도리이 위로 떨어지는 부드러운 페이드 (아래쪽으로 자연스럽게 어두워짐) */
+.shrine-fade{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:min(900px,95vh);
+  pointer-events:none;
+  z-index:3;
+  background:linear-gradient(180deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(12,10,10,.45) 70%,
+    rgba(12,10,10,.92) 100%);
+}
+/* 결과 화면에서는 도리이 숨김 (콘텐츠가 길어 어색해짐) */
+body.is-result .shrine-bg,
+body.is-result .shrine-fade{opacity:0;}
+
 .deco-v{position:fixed;writing-mode:vertical-rl;font-family:'Shippori Mincho',serif;font-size:10px;letter-spacing:.3em;color:var(--blood);opacity:.2;top:50%;transform:translateY(-50%);}
 .deco-v.l{left:16px;}.deco-v.r{right:16px;}
 
@@ -537,11 +575,17 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
   .prize-card .prize-sub{font-size:8.5px;}
   .prize-card .prize-amount{font-size:10px;}
   .btn-learn-more.landing-learn{font-size:13px;padding:14px 18px;letter-spacing:.12em;}
+  .shrine-bg{width:min(560px,130vw);opacity:.38;}
+  .shrine-fade{height:min(640px,80vh);}
 }
 </style>
 </head>
 <body>
 <canvas id="bg"></canvas>
+
+<!-- 신사 도리이 배경 장식 (첫 화면) -->
+<img class="shrine-bg" src="assets/bg_shrine.png" alt="" aria-hidden="true">
+<div class="shrine-fade" aria-hidden="true"></div>
 
 <div class="container">
   <div class="deco-v l">神社 · 囁キ · 運命 · 御神籤</div>
@@ -978,6 +1022,7 @@ function draw(){
     document.getElementById('drawSection').style.display='none';
     document.getElementById('landingHeader').style.display='none';
     document.getElementById('resultArea').classList.add('visible');
+    document.body.classList.add('is-result');
     const ra=document.getElementById('resultAudio');
     ra.currentTime=0;ra.play().catch(()=>{});
     busy=false;track('fortune_draw','',f.rank);
@@ -989,6 +1034,7 @@ function reset(){
   document.getElementById('resultArea').classList.remove('visible');
   document.getElementById('landingHeader').style.display='';
   document.getElementById('drawSection').style.display='flex';
+  document.body.classList.remove('is-result');
   const ra=document.getElementById('resultAudio');ra.pause();ra.currentTime=0;
   busy=false;
 }
@@ -1033,6 +1079,7 @@ function restoreFromUrl(){
   document.getElementById('drawSection').style.display='none';
   document.getElementById('landingHeader').style.display='none';
   document.getElementById('resultArea').classList.add('visible');
+  document.body.classList.add('is-result');
   busy=true;
 }
 restoreFromUrl();
