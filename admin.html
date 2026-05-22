@@ -3,130 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN · 신사 관리자</title>
+<title>관리자 대시보드 | 신사</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Shippori+Mincho:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --black:#06050a;--deep:#0d0b14;--surface:#12101a;--border:#1e1a2e;
-  --accent:#8b1a6b;--accent-b:#b8229a;--red:#8b0000;--red-b:#cc1111;
-  --gold:#a07830;--text:#9090b0;--text-b:#c0c0d8;--text-d:#4a4860;--white:#e8e8f0;
-  --green:#1a6b3a;--green-b:#22a055;--blue:#1a4a8b;--blue-b:#2268cc;
-  --orange:#8b4a00;--orange-b:#cc7010;
+  --bg:#f5f5f7;--surface:#ffffff;--border:#e5e5ea;--border2:#d1d1d6;
+  --text:#1c1c1e;--text2:#3a3a3c;--text3:#8e8e93;--text4:#aeaeb2;
+  --red:#c0392b;--red-b:#e74c3c;--red-light:#ffeee e;--red-bg:#fff5f5;
+  --green:#27ae60;--green-bg:#f0fff4;
+  --blue:#2980b9;--blue-bg:#f0f7ff;
+  --orange:#e67e22;--orange-bg:#fff8f0;
+  --purple:#8e44ad;--purple-bg:#faf0ff;
+  --accent:#c0392b;
 }
-body{background:var(--black);color:var(--text);font-family:'Noto Serif KR',serif;min-height:100vh;}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(139,26,107,.06),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(26,26,139,.06),transparent 60%);pointer-events:none;z-index:0;}
+
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;font-size:14px;}
 
 /* ── LOGIN ── */
-.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;position:relative;z-index:1;}
-.login-card{background:var(--surface);border:1px solid var(--border);padding:48px 40px;width:min(380px,90vw);text-align:center;}
-.login-kana{font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:.5em;color:var(--accent);margin-bottom:10px;}
-.login-title{font-family:'Shippori Mincho',serif;font-size:22px;letter-spacing:.2em;color:var(--white);margin-bottom:4px;}
-.login-sub{font-size:9px;letter-spacing:.35em;color:var(--text-d);margin-bottom:32px;}
-.login-field{background:#0a0910;border:1px solid var(--border);color:var(--text-b);font-family:'JetBrains Mono',monospace;font-size:14px;padding:14px 16px;width:100%;outline:none;margin-bottom:12px;transition:border-color .3s;letter-spacing:.2em;}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:48px 40px;width:min(400px,92vw);box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.login-logo{display:block;width:180px;margin:0 auto 24px;opacity:.85;}
+.login-title{font-size:20px;font-weight:700;color:var(--text);text-align:center;margin-bottom:4px;}
+.login-sub{font-size:12px;color:var(--text3);text-align:center;margin-bottom:32px;letter-spacing:.03em;}
+.login-label{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.05em;margin-bottom:6px;display:block;}
+.login-field{width:100%;background:var(--bg);border:1.5px solid var(--border2);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding:12px 14px;border-radius:8px;outline:none;margin-bottom:12px;transition:border-color .2s;}
 .login-field:focus{border-color:var(--accent);}
-.login-field::placeholder{color:var(--text-d);font-size:11px;letter-spacing:.2em;}
-.login-btn{width:100%;background:var(--accent);border:none;color:white;font-family:'Noto Serif KR',serif;font-size:12px;letter-spacing:.4em;padding:15px;cursor:pointer;transition:background .3s;margin-top:4px;}
-.login-btn:hover{background:var(--accent-b);}
-.login-err{font-size:10px;letter-spacing:.2em;color:var(--red-b);margin-top:10px;min-height:18px;}
-.login-hint{font-size:9px;letter-spacing:.2em;color:var(--text-d);margin-top:20px;line-height:1.9;}
+.login-btn{width:100%;background:var(--accent);border:none;color:white;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;padding:14px;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:4px;}
+.login-btn:hover{background:var(--red-b);}
+.login-err{font-size:12px;color:var(--red-b);text-align:center;margin-top:10px;min-height:18px;}
+.login-hint{font-size:11px;color:var(--text4);text-align:center;margin-top:20px;line-height:1.8;}
 
 /* ── DASHBOARD ── */
-#dashboard{display:none;position:relative;z-index:1;}
+#dashboard{display:none;}
 
 /* Topbar */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:var(--surface);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
-.topbar-left{display:flex;align-items:center;gap:14px;}
-.topbar-logo{font-family:'Shippori Mincho',serif;font-size:14px;color:var(--white);letter-spacing:.2em;}
-.topbar-badge{font-size:8px;letter-spacing:.4em;color:var(--accent);background:rgba(139,26,107,.12);border:1px solid rgba(139,26,107,.3);padding:3px 8px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.topbar-brand{font-size:16px;font-weight:700;color:var(--text);}
+.topbar-badge{font-size:10px;font-weight:600;background:var(--red-bg);color:var(--accent);border:1px solid #ffcdd2;padding:2px 8px;border-radius:20px;letter-spacing:.05em;}
 .topbar-right{display:flex;align-items:center;gap:10px;}
-.topbar-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-d);letter-spacing:.05em;}
-.tb-btn{background:none;border:1px solid var(--border);color:var(--text);font-family:'Noto Serif KR',serif;font-size:10px;letter-spacing:.25em;padding:7px 14px;cursor:pointer;transition:all .25s;}
-.tb-btn:hover{border-color:var(--accent);color:var(--text-b);}
-.tb-btn.danger:hover{border-color:var(--red);color:var(--red-b);}
-.tb-link{color:var(--accent);font-size:10px;letter-spacing:.2em;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s;padding-bottom:1px;}
-.tb-link:hover{border-color:var(--accent);}
+.topbar-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
+.tb-btn{background:var(--bg);border:1.5px solid var(--border2);color:var(--text2);font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s;}
+.tb-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tb-btn.danger:hover{border-color:var(--red-b);color:var(--red-b);}
+.tb-link{color:var(--accent);font-size:12px;font-weight:500;text-decoration:none;padding:7px 14px;border-radius:8px;border:1.5px solid #ffcdd2;background:var(--red-bg);transition:all .2s;}
+.tb-link:hover{background:#ffe0e0;}
 
-/* Main content */
+/* Status bar */
+.status-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 28px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);}
+.status-dot{width:6px;height:6px;border-radius:50%;animation:pdot 2s ease-in-out infinite;}
+.status-dot.ok{background:var(--green);}
+.status-dot.loading{background:var(--orange);}
+.status-dot.err{background:var(--red-b);}
+@keyframes pdot{0%,100%{opacity:.5;}50%{opacity:1;}}
+
+/* Content */
 .content{padding:28px;max-width:1200px;margin:0 auto;}
-.section-title{font-size:10px;letter-spacing:.45em;color:var(--text-d);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* Section title */
+.sec-title{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* Stat cards */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:32px;}
-.stat-card{background:var(--surface);border:1px solid var(--border);padding:22px 20px;position:relative;overflow:hidden;transition:border-color .25s;}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.stat-card.visits::before{background:var(--blue-b);}
-.stat-card.draws::before{background:var(--accent-b);}
-.stat-card.shares::before{background:var(--green-b);}
-.stat-card.events::before{background:var(--red-b);}
-.stat-card.dwell::before{background:var(--orange-b);}
-.stat-card:hover{border-color:rgba(139,26,107,.3);}
-.stat-label{font-size:9px;letter-spacing:.35em;color:var(--text-d);margin-bottom:10px;}
-.stat-value{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:500;color:var(--white);line-height:1;}
-.stat-unit{font-size:12px;color:var(--text-d);margin-left:4px;}
-.stat-sub{font-size:9px;color:var(--text-d);margin-top:8px;letter-spacing:.15em;}
-.stat-loading{animation:pulse .8s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s;}
+.stat-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-2px);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;}
+.stat-card.visits::before{background:var(--blue);}
+.stat-card.draws::before{background:var(--purple);}
+.stat-card.shares::before{background:var(--green);}
+.stat-card.events::before{background:var(--accent);}
+.stat-card.dwell::before{background:var(--orange);}
+.stat-icon{font-size:22px;margin-bottom:10px;}
+.stat-label{font-size:11px;color:var(--text3);font-weight:500;margin-bottom:6px;}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:500;color:var(--text);line-height:1;}
+.stat-unit{font-size:14px;color:var(--text3);}
+.stat-sub{font-size:11px;color:var(--text4);margin-top:6px;}
+.stat-loading{color:var(--text4);}
 
 /* Chart */
-.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:24px;margin-bottom:32px;}
-.chart-legend{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap;}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.25em;color:var(--text-d);}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.chart-title{font-size:14px;font-weight:600;color:var(--text);}
+.chart-legend{display:flex;gap:16px;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
 .legend-dot{width:8px;height:8px;border-radius:50%;}
-.chart-canvas-wrap{position:relative;height:200px;}
+.chart-wrap{position:relative;height:200px;}
 
 /* Table */
-.table-wrap{background:var(--surface);border:1px solid var(--border);overflow:hidden;margin-bottom:28px;}
+.table-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
 .table-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
-.table-title{font-size:11px;letter-spacing:.3em;color:var(--text-b);}
-.table-count{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);background:rgba(139,26,107,.1);padding:3px 10px;border:1px solid rgba(139,26,107,.2);}
+.table-title-text{font-size:14px;font-weight:600;color:var(--text);}
+.table-count-badge{font-size:11px;font-weight:600;background:var(--red-bg);color:var(--accent);padding:3px 10px;border-radius:20px;border:1px solid #ffcdd2;}
 .table-scroll{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:11px;}
-thead tr{background:#0d0b14;}
-th{padding:11px 14px;text-align:left;font-size:9px;letter-spacing:.3em;color:var(--text-d);font-weight:400;white-space:nowrap;border-bottom:1px solid var(--border);}
-td{padding:11px 14px;color:var(--text);border-bottom:1px solid rgba(30,26,46,.6);white-space:nowrap;}
-tr:hover td{background:rgba(139,26,107,.04);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead{background:var(--bg);}
+th{padding:10px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:12px 14px;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;}
 tr:last-child td{border-bottom:none;}
-.td-no{font-family:'JetBrains Mono',monospace;color:var(--text-d);}
-.td-name{color:var(--text-b);}
-.td-fortune{font-family:'Shippori Mincho',serif;font-size:14px;}
-.td-fortune.daikichi{color:#cc4444;}.td-fortune.kichi{color:#44aa66;}.td-fortune.chukichi{color:#4466cc;}.td-fortune.suekichi{color:#8844cc;}.td-fortune.kyo,.td-fortune.daikyo{color:var(--text-d);}
-.td-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-d);}
-.td-marketing{font-size:9px;}
-.td-marketing.agree{color:var(--green-b);}.td-marketing.disagree{color:var(--text-d);}
-.empty-row td{text-align:center;padding:40px;color:var(--text-d);letter-spacing:.2em;font-size:11px;}
-
-/* Pagination */
-.pagination{display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border-top:1px solid var(--border);}
-.pg-btn{background:none;border:1px solid var(--border);color:var(--text-d);font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 12px;cursor:pointer;transition:all .2s;}
-.pg-btn:hover,.pg-btn.active{border-color:var(--accent);color:var(--text-b);}
-.pg-btn:disabled{opacity:.3;cursor:not-allowed;}
-.pg-info{font-size:10px;color:var(--text-d);letter-spacing:.15em;}
-
-/* Status */
-.status-bar{display:flex;align-items:center;gap:8px;padding:8px 28px;background:#0a0910;border-bottom:1px solid var(--border);font-size:9px;letter-spacing:.2em;color:var(--text-d);}
-.status-dot{width:6px;height:6px;border-radius:50%;animation:pdot 2s ease-in-out infinite;}
-.status-dot.ok{background:var(--green-b);}
-.status-dot.loading{background:var(--orange-b);}
-.status-dot.err{background:var(--red-b);}
-@keyframes pdot{0%,100%{opacity:.4;}50%{opacity:1;}}
+tr:hover td{background:#fafafa;}
+.td-no{font-family:'JetBrains Mono',monospace;color:var(--text4);font-size:12px;}
+.td-name{font-weight:500;color:var(--text);}
+.td-fortune{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:700;}
+.td-fortune.daikichi{color:#c0392b;}.td-fortune.kichi{color:#27ae60;}.td-fortune.chukichi{color:#2980b9;}.td-fortune.shokichi{color:#8e6b2e;}.td-fortune.suekichi{color:#7d3c98;}.td-fortune.kyo,.td-fortune.daikyo{color:var(--text3);}
+.td-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
+.td-marketing.agree{color:var(--green);font-weight:500;font-size:11px;}
+.td-marketing.disagree{color:var(--text4);font-size:11px;}
+.empty-row td{text-align:center;padding:48px;color:var(--text4);font-size:13px;}
 
 /* Search */
 .search-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
-.search-input{background:#0a0910;border:1px solid var(--border);color:var(--text-b);font-family:'Noto Serif KR',serif;font-size:11px;padding:9px 14px;outline:none;transition:border-color .3s;min-width:200px;}
+.search-input{background:var(--surface);border:1.5px solid var(--border2);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:13px;padding:9px 14px;border-radius:8px;outline:none;transition:border-color .2s;min-width:200px;}
 .search-input:focus{border-color:var(--accent);}
-.search-input::placeholder{color:var(--text-d);}
-.filter-select{background:#0a0910;border:1px solid var(--border);color:var(--text);font-family:'Noto Serif KR',serif;font-size:11px;padding:9px 14px;outline:none;cursor:pointer;}
+.filter-select{background:var(--surface);border:1.5px solid var(--border2);color:var(--text2);font-family:'Noto Sans KR',sans-serif;font-size:13px;padding:9px 14px;border-radius:8px;outline:none;cursor:pointer;}
+
+/* Pagination */
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border-top:1px solid var(--border);}
+.pg-btn{background:var(--surface);border:1.5px solid var(--border2);color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.pg-btn:hover,.pg-btn.active{border-color:var(--accent);color:var(--accent);background:var(--red-bg);}
+.pg-btn:disabled{opacity:.35;cursor:not-allowed;}
+.pg-info{font-size:11px;color:var(--text3);}
+
+/* Toast */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--text);color:white;font-size:12px;padding:10px 22px;border-radius:8px;z-index:999;opacity:0;transition:opacity .3s;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;}
 
 @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.stat-card,.chart-wrap,.table-wrap{animation:fadein .5s ease both;}
-.stat-card:nth-child(1){animation-delay:.05s;}.stat-card:nth-child(2){animation-delay:.1s;}.stat-card:nth-child(3){animation-delay:.15s;}.stat-card:nth-child(4){animation-delay:.2s;}.stat-card:nth-child(5){animation-delay:.25s;}
-.chart-wrap{animation-delay:.3s;}.table-wrap{animation-delay:.35s;}
-
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);color:var(--text-b);font-size:10px;letter-spacing:.25em;padding:10px 22px;z-index:999;opacity:0;transition:opacity .3s;white-space:nowrap;pointer-events:none;}
-.toast.show{opacity:1;}
+.stat-card{animation:fadein .4s ease both;}
+.stat-card:nth-child(1){animation-delay:.04s;}.stat-card:nth-child(2){animation-delay:.08s;}.stat-card:nth-child(3){animation-delay:.12s;}.stat-card:nth-child(4){animation-delay:.16s;}.stat-card:nth-child(5){animation-delay:.20s;}
+.chart-card{animation:fadein .4s .24s both;}
+.table-card{animation:fadein .4s .28s both;}
 </style>
 </head>
 <body>
@@ -134,16 +142,20 @@ tr:last-child td{border-bottom:none;}
 <!-- LOGIN -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-card">
-    <p class="login-kana">管理者 · 로그인</p>
-    <h1 class="login-title">ADMIN</h1>
-    <p class="login-sub">신사 · 관리자 대시보드</p>
+    <span style="display:block;text-align:center;font-size:28px;margin-bottom:16px;">⛩</span>
+    <h1 class="login-title">관리자 대시보드</h1>
+    <p class="login-sub">신사 · 악귀의 속삭임 · Admin</p>
 
-    <input class="login-field" id="loginUrl" type="url" placeholder="Apps Script URL" autocomplete="off">
-    <input class="login-field" id="loginKey" type="password" placeholder="관리자 비밀번호" autocomplete="off"
+    <label class="login-label">Apps Script URL</label>
+    <input class="login-field" id="loginUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec">
+
+    <label class="login-label">관리자 비밀번호</label>
+    <input class="login-field" id="loginKey" type="password" placeholder="비밀번호 입력"
       onkeydown="if(event.key==='Enter') doLogin()">
+
     <button class="login-btn" onclick="doLogin()">입장하기</button>
     <p class="login-err" id="loginErr"></p>
-    <p class="login-hint">· Apps Script 배포 URL과<br>Code.gs에 설정한 ADMIN_KEY를 입력하세요 ·</p>
+    <p class="login-hint">Code.gs의 ADMIN_KEY를 입력하세요</p>
   </div>
 </div>
 
@@ -151,7 +163,7 @@ tr:last-child td{border-bottom:none;}
 <div id="dashboard">
   <div class="topbar">
     <div class="topbar-left">
-      <span class="topbar-logo">신사 · 관리자 대시보드</span>
+      <span class="topbar-brand">⛩ 신사 관리자</span>
       <span class="topbar-badge">ADMIN</span>
     </div>
     <div class="topbar-right">
@@ -165,56 +177,64 @@ tr:last-child td{border-bottom:none;}
   <div class="status-bar">
     <span class="status-dot ok" id="statusDot"></span>
     <span id="statusText">데이터 로드 완료</span>
-    <span style="margin-left:auto;" id="lastUpdate"></span>
+    <span style="margin-left:auto;font-size:11px;" id="lastUpdate"></span>
   </div>
 
   <div class="content">
 
     <!-- Stats -->
-    <p class="section-title">실시간 통계</p>
+    <p class="sec-title">실시간 통계</p>
     <div class="stat-grid">
       <div class="stat-card visits">
+        <div class="stat-icon">👥</div>
         <p class="stat-label">총 유입자</p>
-        <p class="stat-value"><span id="sv-visits" class="stat-loading">—</span></p>
+        <p class="stat-value stat-loading" id="sv-visits">—</p>
         <p class="stat-sub">페이지 방문</p>
       </div>
       <div class="stat-card draws">
+        <div class="stat-icon">🎋</div>
         <p class="stat-label">운세 뽑기</p>
-        <p class="stat-value"><span id="sv-draws" class="stat-loading">—</span></p>
+        <p class="stat-value stat-loading" id="sv-draws">—</p>
         <p class="stat-sub">오미쿠지 참여</p>
       </div>
       <div class="stat-card shares">
+        <div class="stat-icon">📤</div>
         <p class="stat-label">외부 공유</p>
-        <p class="stat-value"><span id="sv-shares" class="stat-loading">—</span></p>
+        <p class="stat-value stat-loading" id="sv-shares">—</p>
         <p class="stat-sub">공유 버튼 클릭</p>
       </div>
       <div class="stat-card events">
+        <div class="stat-icon">✉️</div>
         <p class="stat-label">이벤트 응모</p>
-        <p class="stat-value"><span id="sv-events" class="stat-loading">—</span></p>
+        <p class="stat-value stat-loading" id="sv-events">—</p>
         <p class="stat-sub">응모 완료</p>
       </div>
       <div class="stat-card dwell">
-        <p class="stat-label">평균 머문 시간</p>
-        <p class="stat-value"><span id="sv-dwell" class="stat-loading">—</span><span class="stat-unit" id="sv-dwell-unit"></span></p>
-        <p class="stat-sub">페이지 체류시간</p>
+        <div class="stat-icon">⏱</div>
+        <p class="stat-label">평균 체류시간</p>
+        <p class="stat-value stat-loading" id="sv-dwell">—<span class="stat-unit" id="sv-dwell-unit"></span></p>
+        <p class="stat-sub">페이지 머문 시간</p>
       </div>
     </div>
 
     <!-- Chart -->
-    <p class="section-title">일별 현황 (최근 14일)</p>
-    <div class="chart-wrap">
-      <div class="chart-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#2268cc;"></div>유입자</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#b8229a;"></div>운세뽑기</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#22a055;"></div>공유</div>
+    <p class="sec-title">일별 현황 (최근 14일)</p>
+    <div class="chart-card">
+      <div class="chart-header">
+        <span class="chart-title">방문 · 뽑기 · 공유 추이</span>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#3498db;"></div>유입자</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#9b59b6;"></div>운세뽑기</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2ecc71;"></div>공유</div>
+        </div>
       </div>
-      <div class="chart-canvas-wrap"><canvas id="myChart"></canvas></div>
+      <div class="chart-wrap"><canvas id="myChart"></canvas></div>
     </div>
 
     <!-- Table -->
-    <p class="section-title">응모자 목록</p>
+    <p class="sec-title">응모자 목록</p>
     <div class="search-row">
-      <input class="search-input" id="searchInput" type="text" placeholder="이름·연락처·메일 검색..." oninput="renderTable()">
+      <input class="search-input" id="searchInput" type="text" placeholder="이름 · 연락처 · 메일 검색..." oninput="renderTable()">
       <select class="filter-select" id="filterFortune" onchange="renderTable()">
         <option value="">전체 운세</option>
         <option>大吉</option><option>吉</option><option>中吉</option>
@@ -227,10 +247,10 @@ tr:last-child td{border-bottom:none;}
       </select>
     </div>
 
-    <div class="table-wrap">
+    <div class="table-card">
       <div class="table-header">
-        <span class="table-title">응모자 목록</span>
-        <span class="table-count" id="tableCount">0 명</span>
+        <span class="table-title-text">응모자 목록</span>
+        <span class="table-count-badge" id="tableCount">0명</span>
       </div>
       <div class="table-scroll">
         <table>
@@ -250,216 +270,165 @@ tr:last-child td{border-bottom:none;}
 <div class="toast" id="toast"></div>
 
 <script>
-const PER_PAGE = 20;
-let SCRIPT_URL = '';
-let ADMIN_KEY  = '';
-let allRegs    = [];
-let chart      = null;
-let curPage    = 1;
+const PER_PAGE=20;
+let SCRIPT_URL='',ADMIN_KEY='',allRegs=[],chart=null,curPage=1;
 
-// ── 시계 ──
-setInterval(() => {
-  const now = new Date();
-  const el  = document.getElementById('topbarTime');
-  if (el) el.textContent = now.toLocaleString('ko-KR', {
-    month:'2-digit', day:'2-digit',
-    hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false
-  });
-}, 1000);
+setInterval(()=>{
+  const el=document.getElementById('topbarTime');
+  if(el) el.textContent=new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+},1000);
 
-// ── 로그인 ──
-function doLogin() {
-  const url = document.getElementById('loginUrl').value.trim();
-  const key = document.getElementById('loginKey').value.trim();
-  if (!url || !key) { showErr('URL과 비밀번호를 모두 입력해주세요'); return; }
-
+function doLogin(){
+  const url=document.getElementById('loginUrl').value.trim();
+  const key=document.getElementById('loginKey').value.trim();
+  if(!url||!key){showErr('URL과 비밀번호를 모두 입력해주세요');return;}
   showErr('확인 중...');
   fetch(`${url}?action=stats&key=${encodeURIComponent(key)}`)
-    .then(r => r.json())
-    .then(data => {
-      if (data.error) { showErr('비밀번호가 올바르지 않습니다'); return; }
-      SCRIPT_URL = url; ADMIN_KEY = key;
-      try { localStorage.setItem('adminUrl', url); localStorage.setItem('adminKey', key); } catch(e) {}
-      document.getElementById('loginWrap').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      applyStats(data);
-      loadChart();
-      loadRegs();
+    .then(r=>r.json())
+    .then(data=>{
+      if(data.error){showErr('비밀번호가 올바르지 않습니다');return;}
+      SCRIPT_URL=url;ADMIN_KEY=key;
+      try{localStorage.setItem('adminUrl',url);localStorage.setItem('adminKey',key);}catch(e){}
+      document.getElementById('loginWrap').style.display='none';
+      document.getElementById('dashboard').style.display='block';
+      applyStats(data);loadChart();loadRegs();
     })
-    .catch(() => showErr('연결 실패. URL을 확인해주세요'));
+    .catch(()=>showErr('연결 실패. URL을 다시 확인해주세요'));
 }
 
-function showErr(msg) { document.getElementById('loginErr').textContent = msg; }
+function showErr(m){document.getElementById('loginErr').textContent=m;}
 
-function doLogout() {
-  SCRIPT_URL = ''; ADMIN_KEY = '';
-  try { localStorage.removeItem('adminUrl'); localStorage.removeItem('adminKey'); } catch(e) {}
-  document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('loginWrap').style.display = 'flex';
-  document.getElementById('loginKey').value = '';
+function doLogout(){
+  SCRIPT_URL='';ADMIN_KEY='';
+  try{localStorage.removeItem('adminUrl');localStorage.removeItem('adminKey');}catch(e){}
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('loginWrap').style.display='flex';
+  document.getElementById('loginKey').value='';
 }
 
-// 저장된 인증 자동 복원
-window.addEventListener('load', () => {
-  try {
-    const url = localStorage.getItem('adminUrl');
-    const key = localStorage.getItem('adminKey');
-    if (url && key) {
-      document.getElementById('loginUrl').value = url;
-      document.getElementById('loginKey').value = key;
-    }
-  } catch(e) {}
+window.addEventListener('load',()=>{
+  try{
+    const url=localStorage.getItem('adminUrl');
+    const key=localStorage.getItem('adminKey');
+    if(url&&key){document.getElementById('loginUrl').value=url;document.getElementById('loginKey').value=key;}
+  }catch(e){}
 });
 
-// ── 데이터 로드 ──
-function setStatus(state, msg) {
-  const dot = document.getElementById('statusDot');
-  dot.className = 'status-dot ' + state;
-  document.getElementById('statusText').textContent = msg;
+function setStatus(s,m){
+  document.getElementById('statusDot').className='status-dot '+s;
+  document.getElementById('statusText').textContent=m;
 }
 
-async function loadAll() {
-  setStatus('loading', '데이터 불러오는 중...');
-  await Promise.all([loadStats(), loadChart(), loadRegs()]);
-  document.getElementById('lastUpdate').textContent =
-    '최종 업데이트: ' + new Date().toLocaleTimeString('ko-KR');
-  setStatus('ok', '데이터 로드 완료');
+async function loadAll(){
+  setStatus('loading','불러오는 중...');
+  await Promise.all([loadStats(),loadChart(),loadRegs()]);
+  document.getElementById('lastUpdate').textContent='최종 업데이트: '+new Date().toLocaleTimeString('ko-KR');
+  setStatus('ok','데이터 로드 완료');
 }
 
-async function loadStats() {
-  try {
-    const r = await fetch(`${SCRIPT_URL}?action=stats&key=${encodeURIComponent(ADMIN_KEY)}`);
-    const d = await r.json();
+async function loadStats(){
+  try{
+    const d=await fetch(`${SCRIPT_URL}?action=stats&key=${encodeURIComponent(ADMIN_KEY)}`).then(r=>r.json());
     applyStats(d);
-  } catch(e) { setStatus('err', '통계 로드 실패'); }
+  }catch(e){setStatus('err','통계 로드 실패');}
 }
 
-function applyStats(d) {
-  setText('sv-visits', d.pageviews ?? '—');
-  setText('sv-draws',  d.draws ?? '—');
-  setText('sv-shares', d.shares ?? '—');
-  setText('sv-events', d.registrations ?? '—');
-  const dwell = d.avgDwell ?? 0;
-  if (dwell >= 60) {
-    setText('sv-dwell', Math.round(dwell/60));
-    setText('sv-dwell-unit', '분');
-  } else {
-    setText('sv-dwell', dwell || '—');
-    setText('sv-dwell-unit', dwell ? '초' : '');
-  }
-  if (d.sheetsUrl) document.getElementById('sheetsLink').href = d.sheetsUrl;
-  ['sv-visits','sv-draws','sv-shares','sv-events','sv-dwell'].forEach(id => {
+function applyStats(d){
+  set('sv-visits',d.pageviews??'—');set('sv-draws',d.draws??'—');
+  set('sv-shares',d.shares??'—');set('sv-events',d.registrations??'—');
+  const dw=d.avgDwell??0;
+  if(dw>=60){set('sv-dwell',Math.round(dw/60));set('sv-dwell-unit','분');}
+  else{set('sv-dwell',dw||'—');set('sv-dwell-unit',dw?'초':'');}
+  if(d.sheetsUrl)document.getElementById('sheetsLink').href=d.sheetsUrl;
+  ['sv-visits','sv-draws','sv-shares','sv-events','sv-dwell'].forEach(id=>{
     document.getElementById(id).classList.remove('stat-loading');
   });
 }
 
-function setText(id, val) { const el = document.getElementById(id); if(el) el.textContent = val; }
+function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 
-async function loadChart() {
-  try {
-    const r = await fetch(`${SCRIPT_URL}?action=daily&key=${encodeURIComponent(ADMIN_KEY)}`);
-    const d = await r.json();
+async function loadChart(){
+  try{
+    const d=await fetch(`${SCRIPT_URL}?action=daily&key=${encodeURIComponent(ADMIN_KEY)}`).then(r=>r.json());
     renderChart(d);
-  } catch(e) {}
+  }catch(e){}
 }
 
-function renderChart(data) {
-  const ctx = document.getElementById('myChart').getContext('2d');
-  if (chart) chart.destroy();
-  chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: data.dates || [],
-      datasets: [
-        { label:'유입자',    data: data.pageviews||[], backgroundColor:'rgba(34,104,204,.7)',  borderColor:'#2268cc', borderWidth:1 },
-        { label:'운세뽑기',  data: data.draws||[],     backgroundColor:'rgba(184,34,154,.7)', borderColor:'#b8229a', borderWidth:1 },
-        { label:'공유',      data: data.shares||[],    backgroundColor:'rgba(34,160,85,.7)',  borderColor:'#22a055', borderWidth:1 },
+function renderChart(data){
+  const ctx=document.getElementById('myChart').getContext('2d');
+  if(chart)chart.destroy();
+  chart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:data.dates||[],
+      datasets:[
+        {label:'유입자',data:data.pageviews||[],backgroundColor:'rgba(52,152,219,.75)',borderColor:'#3498db',borderWidth:1,borderRadius:4},
+        {label:'운세뽑기',data:data.draws||[],backgroundColor:'rgba(155,89,182,.75)',borderColor:'#9b59b6',borderWidth:1,borderRadius:4},
+        {label:'공유',data:data.shares||[],backgroundColor:'rgba(46,204,113,.75)',borderColor:'#2ecc71',borderWidth:1,borderRadius:4},
       ]
     },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ display:false }, tooltip:{ mode:'index', intersect:false, backgroundColor:'#12101a', borderColor:'#1e1a2e', borderWidth:1, titleColor:'#c0c0d8', bodyColor:'#9090b0', titleFont:{family:'Noto Serif KR'}, bodyFont:{family:'JetBrains Mono',size:11} } },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,backgroundColor:'rgba(28,28,30,.9)',titleColor:'#fff',bodyColor:'#aeaeb2',padding:10,borderColor:'#3a3a3c',borderWidth:1}},
       scales:{
-        x:{ grid:{ color:'rgba(30,26,46,.6)' }, ticks:{ color:'#4a4860', font:{family:'JetBrains Mono',size:10} } },
-        y:{ grid:{ color:'rgba(30,26,46,.6)' }, ticks:{ color:'#4a4860', font:{family:'JetBrains Mono',size:10} }, beginAtZero:true }
+        x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{color:'#8e8e93',font:{size:11}}},
+        y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{color:'#8e8e93',font:{size:11}},beginAtZero:true}
       }
     }
   });
 }
 
-async function loadRegs() {
-  try {
-    const r = await fetch(`${SCRIPT_URL}?action=registrations&key=${encodeURIComponent(ADMIN_KEY)}`);
-    allRegs = await r.json();
-    curPage = 1;
-    renderTable();
-  } catch(e) { document.getElementById('tableBody').innerHTML = '<tr class="empty-row"><td colspan="7">데이터 로드 실패</td></tr>'; }
+async function loadRegs(){
+  try{
+    allRegs=await fetch(`${SCRIPT_URL}?action=registrations&key=${encodeURIComponent(ADMIN_KEY)}`).then(r=>r.json());
+    curPage=1;renderTable();
+  }catch(e){document.getElementById('tableBody').innerHTML='<tr class="empty-row"><td colspan="7">데이터 로드 실패</td></tr>';}
 }
 
-// ── 테이블 ──
-const fortuneClass = { '大吉':'daikichi', '吉':'kichi', '中吉':'chukichi', '小吉':'shokichi', '末吉':'suekichi', '凶':'kyo', '大凶':'daikyo' };
+const fcls={'大吉':'daikichi','吉':'kichi','中吉':'chukichi','小吉':'shokichi','末吉':'suekichi','凶':'kyo','大凶':'daikyo'};
 
-function renderTable() {
-  const q  = document.getElementById('searchInput').value.trim().toLowerCase();
-  const ff = document.getElementById('filterFortune').value;
-  const fm = document.getElementById('filterMarketing').value;
-
-  let rows = allRegs.filter(r => {
-    if (ff && r.fortune !== ff) return false;
-    if (fm && r.marketing !== fm) return false;
-    if (q && !`${r.name}${r.contact}${r.email}`.toLowerCase().includes(q)) return false;
+function renderTable(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  const ff=document.getElementById('filterFortune').value;
+  const fm=document.getElementById('filterMarketing').value;
+  let rows=allRegs.filter(r=>{
+    if(ff&&r.fortune!==ff)return false;
+    if(fm&&r.marketing!==fm)return false;
+    if(q&&!`${r.name}${r.contact}${r.email}`.toLowerCase().includes(q))return false;
     return true;
   });
-
-  document.getElementById('tableCount').textContent = rows.length + ' 명';
-
-  const total = Math.ceil(rows.length / PER_PAGE) || 1;
-  if (curPage > total) curPage = total;
-  const slice = rows.slice((curPage-1)*PER_PAGE, curPage*PER_PAGE);
-
-  const tbody = document.getElementById('tableBody');
-  if (!slice.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">응모 데이터가 없습니다</td></tr>';
-    document.getElementById('paginationWrap').innerHTML = '';
-    return;
+  document.getElementById('tableCount').textContent=rows.length+'명';
+  const total=Math.ceil(rows.length/PER_PAGE)||1;
+  if(curPage>total)curPage=total;
+  const slice=rows.slice((curPage-1)*PER_PAGE,curPage*PER_PAGE);
+  const tbody=document.getElementById('tableBody');
+  if(!slice.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">응모 데이터가 없습니다</td></tr>';document.getElementById('paginationWrap').innerHTML='';return;}
+  tbody.innerHTML=slice.map(r=>`<tr>
+    <td class="td-no">${r.no}</td>
+    <td class="td-name">${esc(r.name)}</td>
+    <td>${esc(r.contact)}</td>
+    <td style="color:#8e8e93;">${esc(r.email)||'—'}</td>
+    <td class="td-fortune ${fcls[r.fortune]||''}">${esc(r.fortune)}</td>
+    <td class="td-marketing ${r.marketing==='동의'?'agree':'disagree'}">${esc(r.marketing)}</td>
+    <td class="td-time">${esc(r.time)}</td>
+  </tr>`).join('');
+  const pg=document.getElementById('paginationWrap');
+  if(total<=1){pg.innerHTML='';return;}
+  let h=`<button class="pg-btn" onclick="goPage(${curPage-1})" ${curPage===1?'disabled':''}>‹</button>`;
+  for(let i=1;i<=total;i++){
+    if(i===1||i===total||Math.abs(i-curPage)<=2)h+=`<button class="pg-btn ${i===curPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    else if(Math.abs(i-curPage)===3)h+=`<span class="pg-info">…</span>`;
   }
-
-  tbody.innerHTML = slice.map(r => `
-    <tr>
-      <td class="td-no">${r.no}</td>
-      <td class="td-name">${esc(r.name)}</td>
-      <td>${esc(r.contact)}</td>
-      <td>${esc(r.email)}</td>
-      <td class="td-fortune ${fortuneClass[r.fortune]||''}">${esc(r.fortune)}</td>
-      <td class="td-marketing ${r.marketing==='동의'?'agree':'disagree'}">${esc(r.marketing)}</td>
-      <td class="td-time">${esc(r.time)}</td>
-    </tr>`).join('');
-
-  // Pagination
-  const pg = document.getElementById('paginationWrap');
-  if (total <= 1) { pg.innerHTML = ''; return; }
-  let html = `<button class="pg-btn" onclick="goPage(${curPage-1})" ${curPage===1?'disabled':''}>‹</button>`;
-  for (let i=1;i<=total;i++) {
-    if (i===1 || i===total || Math.abs(i-curPage)<=2)
-      html += `<button class="pg-btn ${i===curPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
-    else if (Math.abs(i-curPage)===3)
-      html += `<span class="pg-info">…</span>`;
-  }
-  html += `<button class="pg-btn" onclick="goPage(${curPage+1})" ${curPage===total?'disabled':''}>›</button>`;
-  html += `<span class="pg-info">${curPage} / ${total} 페이지</span>`;
-  pg.innerHTML = html;
+  h+=`<button class="pg-btn" onclick="goPage(${curPage+1})" ${curPage===total?'disabled':''}>›</button>`;
+  h+=`<span class="pg-info">${curPage}/${total} 페이지</span>`;
+  pg.innerHTML=h;
 }
 
-function goPage(p) { curPage = p; renderTable(); window.scrollTo({top:0,behavior:'smooth'}); }
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function goPage(p){curPage=p;renderTable();window.scrollTo({top:0,behavior:'smooth'});}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),d);}
 
-function toast(msg, dur=2500) {
-  const t = document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), dur);
-}
-
-// 자동 새로고침 (5분마다)
-setInterval(() => { if(SCRIPT_URL) loadAll(); }, 5*60*1000);
+setInterval(()=>{if(SCRIPT_URL)loadAll();},5*60*1000);
 </script>
 </body>
 </html>
