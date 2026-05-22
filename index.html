@@ -39,7 +39,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
 
-/* 신사 도리이 배경 (첫 화면 장식) */
+/* 후드 인물 배경 (첫 화면 장식) */
 .shrine-bg{
   position:fixed;
   top:0;
@@ -47,33 +47,41 @@ canvas#bg{position:fixed;inset:0;pointer-events:none;z-index:1;}
   right:0;
   margin-left:auto;
   margin-right:auto;
-  width:100vw;
-  max-width:900px;
-  height:auto;
+  width:auto;
+  height:100vh;
+  max-width:none;
   pointer-events:none;
   z-index:2;
-  opacity:.7;
-  filter:contrast(1.1) saturate(1.05) brightness(1.05);
+  opacity:.55;
+  filter:contrast(1.08) brightness(.95) saturate(.85);
   transition:opacity .8s ease;
-  animation:shrineFade 1.4s .1s both;
+  animation:shrineFade 1.6s .2s both;
   user-select:none;
   -webkit-user-drag:none;
   display:block;
+  object-fit:contain;
+  object-position:center top;
 }
-@keyframes shrineFade{from{opacity:0;}to{opacity:.7;}}
-/* 도리이 하단 페이드 (콘텐츠 영역으로 자연스럽게 어두워짐) */
+@keyframes shrineFade{from{opacity:0;}to{opacity:.55;}}
+/* 배경 페이드 (콘텐츠 영역 가독성 보호) */
 .shrine-fade{
   position:fixed;
   top:0;left:0;right:0;bottom:0;
   pointer-events:none;
   z-index:3;
-  background:linear-gradient(180deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(12,10,10,.45) 65%,
-    rgba(12,10,10,.92) 100%);
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 75%,
+      rgba(12,10,10,.7) 0%,
+      rgba(12,10,10,.4) 50%,
+      transparent 85%),
+    linear-gradient(180deg,
+      rgba(12,10,10,.15) 0%,
+      transparent 25%,
+      transparent 55%,
+      rgba(12,10,10,.75) 85%,
+      rgba(12,10,10,.95) 100%);
 }
-/* 결과 화면에서는 도리이 숨김 (콘텐츠가 길어 어색해짐) */
+/* 결과 화면에서는 배경 인물 숨김 */
 body.is-result .shrine-bg,
 body.is-result .shrine-fade{opacity:0;}
 
@@ -578,7 +586,7 @@ body.is-result .shrine-fade{opacity:0;}
   .prize-card .prize-sub{font-size:8.5px;}
   .prize-card .prize-amount{font-size:10px;}
   .btn-learn-more.landing-learn{font-size:13px;padding:14px 18px;letter-spacing:.12em;}
-  .shrine-bg{width:100vw;max-width:560px;opacity:.65;}
+  .shrine-bg{height:100vh;width:auto;opacity:.6;}
 }
 </style>
 </head>
@@ -586,7 +594,7 @@ body.is-result .shrine-fade{opacity:0;}
 <canvas id="bg"></canvas>
 
 <!-- 신사 도리이 배경 장식 (첫 화면) -->
-<img class="shrine-bg" src="assets/bg_shrine.png" alt="" aria-hidden="true">
+<img class="shrine-bg" src="assets/bg_2.png" alt="" aria-hidden="true">
 <div class="shrine-fade" aria-hidden="true"></div>
 
 <div class="container">
