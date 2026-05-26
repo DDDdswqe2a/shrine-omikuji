@@ -22,6 +22,8 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <title>이벤트 응모 | 신사 악귀의 속삭임</title>
+<link rel="icon" type="image/png" href="assets/favicon_shrine.png">
+<link rel="apple-touch-icon" href="assets/favicon_shrine.png">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -166,6 +168,10 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 .form-input{font-size:14px;color:#f0e0d0;}
 .check-label{font-size:12px;color:#c09080;}
 .consent-head{font-size:13px;color:#d0a090;}
+/* Site Footer (인덱스 페이지와 통일) */
+.site-footer{margin-top:60px;padding:24px 16px 28px;font-size:13px;letter-spacing:.28em;color:var(--paper);opacity:1;text-align:center;line-height:2.3;font-weight:500;text-shadow:0 0 5px rgba(0,0,0,.9),0 0 12px rgba(0,0,0,.7);background:linear-gradient(180deg,transparent 0%,rgba(12,6,6,.35) 40%,rgba(12,6,6,.6) 100%);position:relative;z-index:20;}
+.site-footer a{color:#e8b4b4 !important;font-weight:600;}
+.site-footer a:hover{color:var(--red-b) !important;}
 </style>
 </head>
 <body>
@@ -227,7 +233,6 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 
       <button class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>응모하기</button>
       <p class="form-note">수집된 개인정보는 이벤트 당첨자 선정 및 경품 발송 목적으로만 사용됩니다</p>
-      <p style="text-align:center;margin-top:20px;"><a href="https://litt.ly/theshrine_movie" target="_blank" style="font-family:'KyoboBatang','Shippori Mincho',serif;font-size:11px;letter-spacing:.3em;color:var(--blood);text-decoration:none;opacity:.7;">〈 신사 : 악귀의 속삭임 〉 · 2026년 6월 17일 CGV 대개봉</a></p>
     </div>
   </div>
 
@@ -248,6 +253,11 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
     <a class="success-back" href="index.html">← 처음으로 돌아가기</a>
   </div>
 </div>
+
+<footer class="site-footer">
+  <p><a href="https://m.site.naver.com/28BNi" target="_blank" style="text-decoration:none;letter-spacing:.3em;">〈 신사 : 악귀의 속삭임 〉</a> · 2026년 6월 17일 CGV 대개봉</p>
+  <p style="margin-top:6px;font-size:11px;opacity:.95;color:var(--dim);">運命ハ既ニ決マッテイル</p>
+</footer>
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwdzHO_830n9SYHTvanX0uZDBaNddSWuFuBA5xWvw16NSb_HHpVRVFbNXo074kF0kcltw/exec';
